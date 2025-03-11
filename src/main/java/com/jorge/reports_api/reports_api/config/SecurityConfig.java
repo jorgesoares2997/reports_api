@@ -14,9 +14,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/relatorios/**").authenticated()
-                        .anyRequest().permitAll())
-                .csrf().disable(); // Desativado pra testes, ative em prod
+                        .anyRequest().permitAll() // Libera tudo pra teste
+                )
+                .csrf().disable(); // Desativado pra testes
         return http.build();
     }
 }

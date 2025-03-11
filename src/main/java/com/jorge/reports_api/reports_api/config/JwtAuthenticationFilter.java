@@ -1,8 +1,5 @@
 package com.jorge.reports_api.reports_api.config;
 
-
-
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +20,8 @@ import java.util.Collections;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private static final String SECRET_KEY = "SUA_CHAVE_SECRETA_BEM_GRANDE_AQUI"; // Troque por uma chave segura
+    private final String SECRET_KEY = "qfXsYBVwgOFRtpTQvQL/1xJ5S77NwB9VJnO9zKVjTUZckctXl2o+8c5YMXPYAIop\n" + //
+            "cm2823Np5r+nUljsCPvwzw==";
     private static final String TOKEN_PREFIX = "Bearer ";
     private static final String HEADER_STRING = "Authorization";
 
@@ -33,8 +31,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain chain) throws ServletException, IOException {
+            HttpServletResponse response,
+            FilterChain chain) throws ServletException, IOException {
         String header = request.getHeader(HEADER_STRING);
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
@@ -54,8 +52,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String username = claims.getSubject();
             if (username != null) {
                 User user = new User(username, "", Collections.emptyList());
-                UsernamePasswordAuthenticationToken auth =
-                        new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null,
+                        user.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
 

@@ -1,4 +1,4 @@
-package com.jorge.reports_api.reports_api.config;
+package com.seuapp.relatorios.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +13,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // Libera tudo pra teste
-                )
-                .csrf().disable(); // Desativado pra testes
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/relatorios/**").authenticated()
+                .anyRequest().permitAll()
+            )
+            .csrf().disable(); // Desativado pra testes, ative em prod
         return http.build();
     }
 }

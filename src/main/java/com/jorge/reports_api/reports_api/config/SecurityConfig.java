@@ -33,7 +33,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
-                "https://jorge-port.vercel.app", // Origem do frontend
+                "https://jorge-port.vercel.app/tools-and-techs",
+                "https://jorge-port.vercel.app/contact", // Origem do frontend
                 "http://localhost:3000" // Para testes locais
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));

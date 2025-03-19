@@ -19,13 +19,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Adiciona CORS ao HttpSecurity
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/relatorios/**").authenticated()
                         .anyRequest().permitAll())
                 .csrf().disable() // Desativado para testes, ative em produção
-                .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // Adiciona
-                                                                                                             // o filtro
-                                                                                                             // JWT
+                .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -39,7 +38,7 @@ public class SecurityConfig {
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true); // Permite cookies/credenciais, se necessário
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
